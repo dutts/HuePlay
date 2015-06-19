@@ -4,30 +4,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:HuePlay.ViewModels"
+    xmlns:huePlay="using:HuePlay"
     mc:Ignorable="d"
-    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    Name="colourCanvas">
+    <Page.DataContext>
+        <viewModels:ColourCanvasViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <Canvas Width="100" Height="100" Background="{Binding PickerColour}"/>
+            <Canvas Width="100" Height="100" Background="{Binding SelectedColour}"/>
         </StackPanel>
-        <Grid Grid.Row="1" PointerMoved="Grid_PointerMoved">
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5" x:Name="grad">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStop Color="Red" Offset="0"/>
-                    <GradientStop Color="Orange" Offset="0.142"/>
-                    <GradientStop Color="Yellow" Offset="0.285"/>
-                    <GradientStop Color="LimeGreen" Offset="0.428"/>
-                    <GradientStop Color="Blue" Offset="0.571"/>
-                    <GradientStop Color="Indigo" Offset="0.714" />
-                    <GradientStop Color="Violet" Offset="1"/>
-                </LinearGradientBrush.GradientStops>
-                </LinearGradientBrush>
-        </Grid.Background>
-        </Grid>
+        <huePlay:ColourPicker Grid.Row="1" PickerColour="{Binding Path=DataContext.SelectedColour, ElementName=colourCanvas, Mode=TwoWay}"/>
     </Grid>
 </Page>
